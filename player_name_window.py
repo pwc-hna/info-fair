@@ -3,6 +3,7 @@ from PySide import QtGui
 import subprocess
 from document_type_window import DocumentWindow
 import time
+import os
 
 class PlayerNameWindow(QtGui.QWidget):
     player_name = None 
@@ -35,21 +36,24 @@ class PlayerNameWindow(QtGui.QWidget):
         print ('Got name ' + self.player_name_edit.text())
         self.player_name = self.player_name_edit.text()
 
+        stopwatch = time.time()
         # Now we have a character name, iterate through the list of documents and open them for classification
-        open_doc_process = self.launch_doc()
+        filename = 'cv_template.docx'
+        open_doc_process = self.launch_doc(filename)
         
         # Launch the window to get the document type selected by the player
-        time.sleep(3)
-        document_type_window = DocumentWindow()
+        time.sleep(5)
+        document_type_window = DocumentWindow(filename)
         document_type_window.show()
 
         self.close()
+        stopwatch = time.time() - stopwatch
+        print ("You did it in ---%s seconds ---" % stopwatch)
 
-    def launch_doc(self):
-        filename = 'cv_template.docx'
+    def launch_doc(self, filename):
         print "filepath = "+filename
         command = ['cmd', '/c', 'start', filename]
-        return subprocess.Popen(command)
+        return subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
 
     def getPlayerName(self):
         return self.player_name
