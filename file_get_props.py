@@ -59,10 +59,9 @@ def property_sets (filepath):
 
 def get_comments(filepath) :
   for name, properties in property_sets (filepath):
-    print name
     for k,v in properties.items():
       if k == "PIDSI_COMMENTS":
-        print "got value = ",v
+        # print "got value = ",v
         return v
 
 if __name__ == '__main__':
