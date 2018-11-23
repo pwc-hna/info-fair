@@ -15,8 +15,13 @@ class PlayerNameWindow(QtGui.QWidget):
         # 5 pixel indent, 25 pixels lower than last pair of widgets
         self.player_name_label.move(5, 30)
  
+        self.submit_btn = QtGui.QPushButton('Submit', self)
+        self.submit_btn.clicked.connect(self.handleNameButton)
+
         # The recipient control is an entry textbox
         self.player_name_edit = QtGui.QLineEdit(self)
+        self.player_name_edit.returnPressed.connect(self.submit_btn.click)
+
         # Add some ghost text to indicate what sort of thing to enter
         self.player_name_edit.setPlaceholderText("Gandalf the grey")
         # Same width as the salutation
@@ -24,8 +29,6 @@ class PlayerNameWindow(QtGui.QWidget):
         # Same indent as salutation but 25 pixels lower
         self.player_name_edit.move(110, 30)
 
-        self.submit_btn = QtGui.QPushButton('Submit', self)
-        self.submit_btn.clicked.connect(self.handleNameButton)
         self.layout = QtGui.QVBoxLayout(self)
         self.layout.addWidget(self.player_name_label)
         self.layout.addWidget(self.player_name_edit)
@@ -36,24 +39,8 @@ class PlayerNameWindow(QtGui.QWidget):
         print ('Got name ' + self.player_name_edit.text())
         self.player_name = self.player_name_edit.text()
 
-        stopwatch = time.time()
-        # Now we have a character name, iterate through the list of documents and open them for classification
-        filename = 'cv_template.docx'
-        open_doc_process = self.launch_doc(filename)
-        
-        # Launch the window to get the document type selected by the player
-        time.sleep(5)
-        document_type_window = DocumentWindow(filename)
-        document_type_window.show()
-
+        document_type_window = DocumentWindow(self.player_name)
         self.close()
-        stopwatch = time.time() - stopwatch
-        print ("You did it in ---%s seconds ---" % stopwatch)
-
-    def launch_doc(self, filename):
-        print "filepath = "+filename
-        command = ['cmd', '/c', 'start', filename]
-        return subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
 
     def getPlayerName(self):
         return self.player_name
