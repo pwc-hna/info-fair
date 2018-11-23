@@ -6,6 +6,7 @@ import file_get_props
 import time
 import random
 import sys
+import requests
 
 ms = 0
 s = 0
@@ -81,9 +82,11 @@ class DocumentWindow(QtGui.QWidget):
         # Verify if choice is correct
         if (submitted_doc_type == file_get_props.get_comments(self.current_file)):
             # print "The choice is correct"
+            # TODO: Light up green leds in tree
             pass
         else:
             # print "The choice is NOT correct"
+            # TODO: Light up red leds in tree
             self.mistakes += 1
             
         # close active subprocess
@@ -98,7 +101,7 @@ class DocumentWindow(QtGui.QWidget):
 
     def launch_doc(self, filename):
         # print "filepath = "+filename
-        command = ['cmd', '/c', 'start', filename]
+        command = ['cmd', '/c', 'start', '/max', filename]
         return subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
 
     def stopwatch_show_time(self):
@@ -132,7 +135,10 @@ class DocumentWindow(QtGui.QWidget):
             # print "Last file, stop timer" 
             self.timer.stop()
             # TODO: send name + time + accuracy to server
-            print "you did it in " + "{0}:{1}:{2}".format("%02d"%(m,),"%02d"%(s,),"%02d"%(ms,)) + " and had " + str(self.mistakes) + " mistakes"
+            final_time = "{0}:{1}:{2}".format("%02d"%(m,),"%02d"%(s,),"%02d"%(ms,))
+            print "you did it in " + final_time + " and had " + str(self.mistakes) + " mistakes"
+            self.post_json(self.player_name, final_time, self.mistakes)
+            os.startfile("http://localhost:5000")
             self.close()
             return
 
@@ -147,4 +153,6 @@ class DocumentWindow(QtGui.QWidget):
         self.activateWindow()
         if self.current_file_index == 0:
             self.stopwatch_start_timer()
-        
+
+    def post_json(self, player_name, final_time, mistakes):
+        r = requests.post('http://localhost:5000/foo', json={"username": player_name, "time":final_time,"mistakes":mistakes})

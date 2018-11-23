@@ -23,7 +23,8 @@ class PlayerNameWindow(QtGui.QWidget):
         self.player_name_edit.returnPressed.connect(self.submit_btn.click)
 
         # Add some ghost text to indicate what sort of thing to enter
-        self.player_name_edit.setPlaceholderText("Gandalf the grey")
+        self.default_player_name = "Gandalf the Grey"
+        self.player_name_edit.setPlaceholderText("Gandalf the Grey")
         # Same width as the salutation
         self.player_name_edit.setMinimumWidth(285)
         # Same indent as salutation but 25 pixels lower
@@ -35,10 +36,9 @@ class PlayerNameWindow(QtGui.QWidget):
         self.layout.addWidget(self.submit_btn)
 
     def handleNameButton(self):
-        # store playername in a database
-        print ('Got name ' + self.player_name_edit.text())
         self.player_name = self.player_name_edit.text()
-
+        if self.player_name == None:
+            self.player_name = self.default_player_name
         document_type_window = DocumentWindow(self.player_name)
         self.close()
 

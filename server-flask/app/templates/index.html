@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>{{ title }} - Leaderboards</title>
+    </head>
+    <body>
+        <h1>Leaderboards!</h1>
+        {% for result in results %}
+        <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
+        {% endfor %}
+    </body>
+</html>
