@@ -4,6 +4,7 @@ import subprocess
 from document_type_window import DocumentWindow
 import time
 import os
+import server_tools
 
 class PlayerNameWindow(QtGui.QWidget):
     player_name = None 
@@ -24,7 +25,7 @@ class PlayerNameWindow(QtGui.QWidget):
 
         # Add some ghost text to indicate what sort of thing to enter
         self.default_player_name = "Gandalf the Grey"
-        self.player_name_edit.setPlaceholderText("Gandalf the Grey")
+        self.player_name_edit.setPlaceholderText(self.default_player_name)
         # Same width as the salutation
         self.player_name_edit.setMinimumWidth(285)
         # Same indent as salutation but 25 pixels lower
@@ -39,6 +40,7 @@ class PlayerNameWindow(QtGui.QWidget):
         self.player_name = self.player_name_edit.text()
         if self.player_name == None:
             self.player_name = self.default_player_name
+        # server_tools.post_player_progress_json(self.player_name, '0','2')
         document_type_window = DocumentWindow(self.player_name)
         self.close()
 

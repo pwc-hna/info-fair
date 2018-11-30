@@ -1,11 +1,16 @@
 <html>
     <head>
         <title>{{ title }} - Leaderboards</title>
+        <meta http-equiv="refresh" content="1">
     </head>
     <body>
         <h1>Leaderboards!</h1>
         {% for result in results %}
         <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
+        {% endfor %}
+        <h1>Live players</h1>
+        {% for live_player in live_players %}
+        <div><p>{{ live_player.username }} document: <b>{{ live_player.current_doc }}</b> out of <b>{{live_player.total_docs}}</b></p></div>
         {% endfor %}
     </body>
 </html>

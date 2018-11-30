@@ -7,6 +7,7 @@ import time
 import random
 import sys
 import requests
+import server_tools
 
 ms = 0
 s = 0
@@ -137,11 +138,13 @@ class DocumentWindow(QtGui.QWidget):
             # TODO: send name + time + accuracy to server
             final_time = "{0}:{1}:{2}".format("%02d"%(m,),"%02d"%(s,),"%02d"%(ms,))
             print "you did it in " + final_time + " and had " + str(self.mistakes) + " mistakes"
-            self.post_json(self.player_name, final_time, self.mistakes)
+            # self.post_json(self.player_name, final_time, self.mistakes)
+            server_tools.post_game_end_json(self.player_name, final_time, self.mistakes)
             os.startfile("http://localhost:5000")
             self.close()
             return
 
+        server_tools.post_player_progress_json(self.player_name, self.current_file_index, len(self.filenames))
         self.current_file = self.filenames[self.current_file_index]
         # print "current filename  = "+ self.current_file
         self.launch_doc(self.current_file)

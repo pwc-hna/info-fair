@@ -7,6 +7,7 @@ import qdarkstyle
 from player_name_window import PlayerNameWindow
 from document_type_window import DocumentWindow
 import atexit
+import settings
 
 
 def launch_doc():
@@ -19,6 +20,7 @@ def exit_handler():
     os.system("taskkill /im winword.exe")
 
 if __name__ == '__main__':
+    settings.init()
     # GUI app will get the name of the player
     player_name_app = QtGui.QApplication(sys.argv)
     player_name_window = PlayerNameWindow()
