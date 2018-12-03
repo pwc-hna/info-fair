@@ -63,3 +63,20 @@ def progress():
     db_user_update_live_player(incoming_live_player)
 
     return json.dumps(request.json)
+
+@app.route('/quit', methods=['POST'])
+def quit():
+    if not request.json:
+        print "ERROR no json"
+        abort(400)
+    req_data = request.json
+
+    try:
+        incoming_username = req_data['username']
+    except KeyError:
+        print "ERROR invalid JSON data " + req_data
+        return
+
+    if db_user_is_live(incoming_username):
+        db_rm_live_player(incoming_username)
+    return json.dumps(request.json)

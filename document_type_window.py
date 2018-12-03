@@ -18,32 +18,78 @@ class DocumentWindow(QtGui.QWidget):
         QtGui.QWidget.__init__(self)
         self.player_name = player_name
         self.mistakes = 0
-
-        layout = QtGui.QGridLayout()
         
-        text_label = QtGui.QLabel() 
-        text_label.setText(str(self.player_name) + ", Which category is appropriate for the document in background?")
-        layout.addWidget(text_label,1,0)
+        self.resize(639, 501)
+        icon = QtGui.QIcon()
+        icon.addFile('res/logos/pwc_logo_16x16.png', QtCore.QSize(16,16))
+        icon.addFile('res/logos/pwc_logo_24x24.png', QtCore.QSize(24,24))
+        icon.addFile('res/logos/pwc_logo_32x32.png', QtCore.QSize(32,32))
+        icon.addFile('res/logos/pwc_logo_48x48.png', QtCore.QSize(48,48))
+        icon.addFile('res/logos/pwc_logo_256x256.png', QtCore.QSize(256,256))
+        self.setWindowIcon(icon)
+        self.setWindowTitle('BeatTheBot')
+        # layout = QtGui.QGridLayout()
+
+        self.label_logo = QtGui.QLabel(self)
+        self.label_logo.move(50, 30)
+        self.label_logo.setText("")
+        self.label_logo.setPixmap(QtGui.QPixmap("res/logos/pwc_logo_bw_100x76.png"))
+        self.label_logo.show()
+
+        
+        self.text_label = QtGui.QLabel(self) 
+        self.text_label.setText("Select document")
+        self.text_label.setGeometry(QtCore.QRect(120, 170, 435, 72))
+        font = QtGui.QFont()
+        font.setPointSize(28)
+        font.setWeight(75)
+        # font.setBold(True)
+        self.text_label.setFont(font)
+        self.text_label.show()
+
+        # layout.addWidget(text_label,1,0)
         
         self.submit_btn = QtGui.QPushButton('Submit', self)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.submit_btn.setFont(font)
+        self.submit_btn.move(447,350)
         self.submit_btn.clicked.connect(self.handleSubmit)
-        layout.addWidget(self.submit_btn,3,0)
+        # layout.addWidget(self.submit_btn,3,0)
 
 
-        self.btn_cv = QtGui.QRadioButton("CV")
+        self.btn_cv = QtGui.QRadioButton("CV", self)
         self.btn_cv.toggled.connect(lambda:self.btnstate(self.btn_cv))
-        layout.addWidget(self.btn_cv,2,0)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.btn_cv.setFont(font)
+        self.btn_cv.move(120, 250)
+
+        # layout.addWidget(self.btn_cv,2,0)
             
-        self.btn_invoice = QtGui.QRadioButton("Invoice")
+        self.btn_invoice = QtGui.QRadioButton("Invoice", self)
         self.btn_invoice.toggled.connect(lambda:self.btnstate(self.btn_invoice))
-        layout.addWidget(self.btn_invoice,2,1)
+        font = QtGui.QFont()
+        font.setPointSize(18)
+        self.btn_invoice.setFont(font)
+        self.btn_invoice.move(230, 250)
+
+        # layout.addWidget(self.btn_invoice,2,1)
         self.btn_group = QtGui.QButtonGroup()
         self.btn_group.addButton(self.btn_cv)
-        self.btn_group.addButton(self.btn_invoice)       
+        self.btn_group.addButton(self.btn_invoice)
+        # self.btn_group.setGeometry(QtCore.QRect(120, 250, 435, 72))
+       
 
 
         self.lcd = QtGui.QLCDNumber(self)
-        layout.addWidget(self.lcd,4,0,1,3)
+        self.lcd.setGeometry(QtCore.QRect(120, 400, 435, 72))
+        font = QtGui.QFont()
+        font.setPointSize(28)
+        self.lcd.setFont(font)
+
+
+        # layout.addWidget(self.lcd,4,0,1,3)
 
         try:
             self.timer = QtCore.QTimer(self)
@@ -55,8 +101,7 @@ class DocumentWindow(QtGui.QWidget):
 
 
 
-        self.setLayout(layout)
-        self.setWindowTitle("?")
+        # self.setLayout(layout)
 
         self.filenames = ['word_cv_template.docx','word_invoice.docx']
         random.shuffle(self.filenames)
@@ -159,3 +204,20 @@ class DocumentWindow(QtGui.QWidget):
 
     def post_json(self, player_name, final_time, mistakes):
         r = requests.post('http://localhost:5000/foo', json={"username": player_name, "time":final_time,"mistakes":mistakes})
+
+def exit_handler():
+    os.system("taskkill /im winword.exe")
+import qdarkstyle
+import atexit
+import settings
+
+if __name__ == '__main__':
+    settings.init()
+    # GUI app will get the name of the player
+    player_name_app = QtGui.QApplication(sys.argv)
+    player_name_window = DocumentWindow('Horia')
+    player_name_app.setStyleSheet(qdarkstyle.load_stylesheet_pyside())
+    player_name_window.show()
+    player_name_app.exec_()
+    atexit.register(exit_handler)
+    sys.exit()

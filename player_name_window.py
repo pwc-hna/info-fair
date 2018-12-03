@@ -5,6 +5,7 @@ from document_type_window import DocumentWindow
 import time
 import os
 import server_tools
+import settings
 
 class PlayerNameWindow(QtGui.QWidget):
     player_name = None 
@@ -58,6 +59,7 @@ class PlayerNameWindow(QtGui.QWidget):
         self.player_name = self.edit_player_name.text()
         if self.player_name == None:
             self.player_name = self.edit_default_player_name
+        settings.playerName = self.player_name
         document_type_window = DocumentWindow(self.player_name)
         self.close()
 

@@ -8,6 +8,7 @@ from player_name_window import PlayerNameWindow
 from document_type_window import DocumentWindow
 import atexit
 import settings
+import server_tools
 
 
 def launch_doc():
@@ -18,6 +19,7 @@ def launch_doc():
 
 def exit_handler():
     os.system("taskkill /im winword.exe")
+    server_tools.post_player_quit_game()
 
 if __name__ == '__main__':
     settings.init()

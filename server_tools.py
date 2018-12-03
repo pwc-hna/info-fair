@@ -1,6 +1,7 @@
 import json
 import requests
 import settings
+import time
 
 def post_json_to_server(json, route):
     requests.post(settings.serverAddress + route, json=json)
@@ -10,3 +11,7 @@ def post_game_end_json(player_name, final_time, mistakes):
 
 def post_player_progress_json(player_name, current_doc, total_docs):
     post_json_to_server(json={"username": player_name, "current_doc":current_doc,"total_docs":total_docs},route='/progress')
+
+def post_player_quit_game():
+    if settings.playerName is not None:
+        post_json_to_server(json={"username": settings.playerName},route='/quit')
