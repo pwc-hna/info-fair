@@ -5,7 +5,6 @@ from document_type_window import DocumentWindow
 import time
 import os
 import server_tools
-from player_name import Ui_Dialog
 
 class PlayerNameWindow(QtGui.QWidget):
     player_name = None 
