@@ -13,8 +13,11 @@ live_players = []
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home', results=db_get_all_finished_users_as_list(), live_players=db_get_all_live_users_as_list())
+    return render_template('index.html', title='Leaderboards', results=db_get_all_finished_users_as_list(), live_players=db_get_all_live_users_as_list())
 
+@app.route('/index_refresh')
+def index_refresh():
+    return render_template('index_refresh.html', title='Leaderboards', results=db_get_all_finished_users_as_list(), live_players=db_get_all_live_users_as_list())
 
 @app.route('/finished', methods=['POST'])
 def finished():
