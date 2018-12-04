@@ -28,7 +28,6 @@ class DocumentWindow(QtGui.QWidget):
         icon.addFile('res/logos/pwc_logo_256x256.png', QtCore.QSize(256,256))
         self.setWindowIcon(icon)
         self.setWindowTitle('BeatTheBot')
-        # layout = QtGui.QGridLayout()
 
         self.label_logo = QtGui.QLabel(self)
         self.label_logo.move(50, 30)
@@ -43,20 +42,15 @@ class DocumentWindow(QtGui.QWidget):
         font = QtGui.QFont()
         font.setPointSize(28)
         font.setWeight(75)
-        # font.setBold(True)
         self.text_label.setFont(font)
         self.text_label.show()
 
-        # layout.addWidget(text_label,1,0)
-        
         self.submit_btn = QtGui.QPushButton('Submit', self)
         font = QtGui.QFont()
         font.setPointSize(18)
         self.submit_btn.setFont(font)
         self.submit_btn.move(447,350)
         self.submit_btn.clicked.connect(self.handleSubmit)
-        # layout.addWidget(self.submit_btn,3,0)
-
 
         self.btn_cv = QtGui.QRadioButton("CV", self)
         self.btn_cv.toggled.connect(lambda:self.btnstate(self.btn_cv))
@@ -65,8 +59,6 @@ class DocumentWindow(QtGui.QWidget):
         self.btn_cv.setFont(font)
         self.btn_cv.move(120, 250)
 
-        # layout.addWidget(self.btn_cv,2,0)
-            
         self.btn_invoice = QtGui.QRadioButton("Invoice", self)
         self.btn_invoice.toggled.connect(lambda:self.btnstate(self.btn_invoice))
         font = QtGui.QFont()
@@ -74,22 +66,15 @@ class DocumentWindow(QtGui.QWidget):
         self.btn_invoice.setFont(font)
         self.btn_invoice.move(230, 250)
 
-        # layout.addWidget(self.btn_invoice,2,1)
         self.btn_group = QtGui.QButtonGroup()
         self.btn_group.addButton(self.btn_cv)
         self.btn_group.addButton(self.btn_invoice)
-        # self.btn_group.setGeometry(QtCore.QRect(120, 250, 435, 72))
-       
-
 
         self.lcd = QtGui.QLCDNumber(self)
         self.lcd.setGeometry(QtCore.QRect(120, 400, 435, 72))
         font = QtGui.QFont()
         font.setPointSize(28)
         self.lcd.setFont(font)
-
-
-        # layout.addWidget(self.lcd,4,0,1,3)
 
         try:
             self.timer = QtCore.QTimer(self)
@@ -99,11 +84,11 @@ class DocumentWindow(QtGui.QWidget):
             sys.exit()
             pass
 
-
-
-        # self.setLayout(layout)
-
-        self.filenames = ['word_cv_template.docx','word_invoice.docx']
+        doc_dir = os.path.dirname(os.path.realpath(__file__)) + "\\documents\\output\\"
+        doc_files = os.listdir(doc_dir)
+        self.filenames = []
+        for doc_file in doc_files:
+            self.filenames.append(doc_dir+doc_file)
         random.shuffle(self.filenames)
 
         self.current_file_index = 0
@@ -125,16 +110,21 @@ class DocumentWindow(QtGui.QWidget):
         self.btn_invoice.setChecked(False)
         self.btn_group.setExclusive(True)
 
-        # Verify if choice is correct
-        if (submitted_doc_type == file_get_props.get_comments(self.current_file)):
-            # print "The choice is correct"
+        # Verify if choice is correct: CVs have even sum digits, invoices have odd
+        fname, file_extension = os.path.splitext(os.path.basename(self.filenames[self.current_file_index]))
+        if (submitted_doc_type == 'CV') and (sum_digits(int(fname)) % 2 == 0):
+            print "The choice is correct"
+            # TODO: Light up green leds in tree
+            pass
+        elif (submitted_doc_type == "Invoice") and (sum_digits(int(fname)) % 2 != 0):
+            print "The choice is correct"
             # TODO: Light up green leds in tree
             pass
         else:
-            # print "The choice is NOT correct"
+            print "The choice is NOT correct"
             # TODO: Light up red leds in tree
             self.mistakes += 1
-            
+
         # close active subprocess
         os.system("taskkill /im winword.exe")
         # increment file index
@@ -210,6 +200,13 @@ def exit_handler():
 import qdarkstyle
 import atexit
 import settings
+
+def sum_digits(n):
+    s = 0
+    while n:
+        s += n % 10
+        n //= 10
+    return s
 
 if __name__ == '__main__':
     settings.init()
