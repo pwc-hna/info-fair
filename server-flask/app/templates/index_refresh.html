@@ -64,7 +64,7 @@
             <div class="col-md-4 text-left">
               <div class="hna-slides-text probootstrap-animate">
                 <h2>Top 10 <br> robots</h2>
-                {% for result in results %}
+                {% for result in results_robots %}
                 <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
                 {% endfor %}
               </div>
@@ -81,7 +81,7 @@
             <div class="col-md-4 text-right">
               <div class="hna-slides-text probootstrap-animate">
                 <h2>Top 10 <br> human</h2>
-                {% for result in results %}
+                {% for result in results_humans %}
                 <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
                 {% endfor %}
               </div>

@@ -83,8 +83,25 @@ def db_get_all_live_users_as_list():
     return live_users
 
 def db_get_all_finished_users_as_list():
-    query_entries = FinishedUser.query.all()
+    query_entries = db.session.query(FinishedUser).order_by(FinishedUser.mistakes).order_by(FinishedUser.time).all()
+    # print query_entries
     finished_users = []
     for finished_player in query_entries:
         finished_users.append({'username':finished_player.username,'time':finished_player.time, 'mistakes':finished_player.mistakes})
     return finished_users
+
+def db_get_all_finished_robots_as_list():
+    query_entries = db.session.query(FinishedUser).filter(FinishedUser.username.like('Robo%')).order_by(FinishedUser.mistakes).order_by(FinishedUser.time)
+    # print query_entries
+    finished_robots = []
+    for finished_player in query_entries:
+        finished_robots.append({'username':finished_player.username,'time':finished_player.time, 'mistakes':finished_player.mistakes})
+    return finished_robots
+
+def db_get_all_finished_humans_as_list():
+    query_entries = db.session.query(FinishedUser).filter(~FinishedUser.username.like('Robo%')).order_by(FinishedUser.mistakes).order_by(FinishedUser.time).all()
+    # print query_entries
+    finished_humans = []
+    for finished_player in query_entries:
+        finished_humans.append({'username':finished_player.username,'time':finished_player.time, 'mistakes':finished_player.mistakes})
+    return finished_humans

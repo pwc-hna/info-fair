@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
 
-    <script src="js/vendor/html5shiv.min.js"></script>
-    <script src="js/vendor/respond.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
     <title>{{ title }} - Leaderboards</title>
   </head>
   <body>
@@ -61,7 +63,7 @@
             <div class="col-md-4 text-left">
               <div class="hna-slides-text probootstrap-animate">
                 <h2>Top 10 <br> robots</h2>
-                {% for result in results %}
+                {% for result in results_robots %}
                 <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
                 {% endfor %}
               </div>
@@ -78,7 +80,7 @@
             <div class="col-md-4 text-right">
               <div class="hna-slides-text probootstrap-animate">
                 <h2>Top 10 <br> human</h2>
-                {% for result in results %}
+                {% for result in results_humans %}
                 <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
                 {% endfor %}
               </div>
