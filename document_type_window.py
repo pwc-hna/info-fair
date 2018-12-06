@@ -88,8 +88,11 @@ class DocumentWindow(QtGui.QWidget):
         doc_files = os.listdir(doc_dir)
         self.filenames = []
         for doc_file in doc_files:
-            self.filenames.append(doc_dir+doc_file)
+            # Don't include word rubbish files created by taskkill
+            if '$' not in doc_file:
+                self.filenames.append(doc_dir+doc_file)
         random.shuffle(self.filenames)
+        self.filenames = self.filenames[:5]
 
         self.current_file_index = 0
         self.display_docs()
@@ -196,7 +199,7 @@ class DocumentWindow(QtGui.QWidget):
         r = requests.post('http://localhost:5000/foo', json={"username": player_name, "time":final_time,"mistakes":mistakes})
 
 def exit_handler():
-    os.system("taskkill /im winword.exe")
+    os.system("taskkill /f /im winword.exe /im AcroRd32.exe /im acrobat.exe /im dllhost.exe")
 import qdarkstyle
 import atexit
 import settings
