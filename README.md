@@ -45,6 +45,11 @@ flask run
 
 You can test the server is running by opening your browser and navigating to http://127.0.0.1:5000/
 
+## Copy CV's and invoices
+I can't upload the sample documents here but they should be shared with you all, just extract the contents of 
+[this zip](https://drive.google.com/open?id=1B27VsUtW-q81sPqcF4DoWcrSB4TtpK_B) to info-fair/documents/output
+
+
 ## To launch the game:
 ```
 python main.py
