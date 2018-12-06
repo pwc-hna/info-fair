@@ -125,8 +125,8 @@ class DocumentWindow(QtGui.QWidget):
             # TODO: Light up red leds in tree
             self.mistakes += 1
 
-        # close active subprocess
-        os.system("taskkill /im winword.exe")
+        # close active subprocess: word, acrobat, photo viewer
+        os.system("taskkill /f /im winword.exe /im AcroRd32.exe /im acrobat.exe /im dllhost.exe")
         # increment file index
         self.current_file_index += 1
         self.hide()

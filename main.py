@@ -18,7 +18,7 @@ def launch_doc():
     return subprocess.Popen(command)
 
 def exit_handler():
-    os.system("taskkill /im winword.exe")
+    os.system("taskkill /f /im winword.exe /im AcroRd32.exe /im acrobat.exe /im dllhost.exe")
     server_tools.post_player_quit_game()
 
 if __name__ == '__main__':
