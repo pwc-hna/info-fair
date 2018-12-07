@@ -6,4 +6,5 @@ def init():
     serverHostname = 'http://localhost'
     serverPort = '5000'
     serverAddress = serverHostname + ':' + serverPort
+    global playerName 
     playerName = None

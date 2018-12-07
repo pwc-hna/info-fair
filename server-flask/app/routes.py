@@ -83,3 +83,10 @@ def quit():
     if db_user_is_live(incoming_username):
         db_rm_live_player(incoming_username)
     return json.dumps(request.json)
+
+@app.route('/live', methods=['GET'])
+def live():
+    # Return a json with live players?
+    data = {}
+    #data["live_player"] = "TestPlayer"
+    return json.dumps(data)

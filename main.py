@@ -21,7 +21,7 @@ def exit_handler():
     os.system("taskkill /f /im winword.exe /im AcroRd32.exe /im acrobat.exe /im dllhost.exe")
     server_tools.post_player_quit_game()
 
-if __name__ == '__main__':
+def start_game():
     settings.init()
     # GUI app will get the name of the player
     player_name_app = QtGui.QApplication(sys.argv)
@@ -32,3 +32,6 @@ if __name__ == '__main__':
     atexit.register(exit_handler)
     sys.exit()
 
+
+if __name__ == '__main__':
+    start_game()
