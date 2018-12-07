@@ -88,8 +88,8 @@ class DocumentWindow(QtGui.QWidget):
         doc_files = os.listdir(doc_dir)
         self.filenames = []
         for doc_file in doc_files:
-            # Don't include word rubbish files created by taskkill
-            if '$' not in doc_file:
+            # Don't include word rubbish files created by taskkill / gitignore / zip files
+            if ('$' not in doc_file) and ('.gitignore' not in doc_file) and ('.zip' not in doc_file):
                 self.filenames.append(doc_dir+doc_file)
         random.shuffle(self.filenames)
         self.filenames = self.filenames[:5]

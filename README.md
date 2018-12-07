@@ -22,35 +22,27 @@ python get-pip.py
 
 4. Microsoft Visual C++ Compiler for Python 2.7: http://aka.ms/vcpython27
 
-## To download this repository:
+## Download this repository:
 ```
 git clone https://github.com/pwc-hna/info-fair.git
 ```
 
-## To install all packages:
+## Install all required python packages:
 ```
 cd info-fair
 pip install -r requirements.txt
 ```
 **Note:** "failed building weel for twisted" error --> solved by installing http://aka.ms/vcpython27
 
-
-## To launch the web server:
-```
-cd server-flask
-flask run
-```
-
-**Note:** "no model named sql" error --> use the -r function when installing requirements.txt ;)
-
-You can test the server is running by opening your browser and navigating to http://127.0.0.1:5000/
-
 ## Copy CV's and invoices
 I can't upload the sample documents here but they should be shared with you all, just extract the contents of 
 [this zip](https://drive.google.com/open?id=1B27VsUtW-q81sPqcF4DoWcrSB4TtpK_B) to info-fair/documents/output
 
 
-## To launch the game:
-```
-python main.py
-```
+## Run the game and the server locally on your PC:
+Run info-fair/start_all.bat
+
+## Run the game with a remote server:
+1. Edit settings.py changing serverHostname and serverPort with your remote setup
+
+2. Run info-fair/start_all.bat
