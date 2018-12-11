@@ -89,10 +89,10 @@ class DocumentWindow(QtGui.QWidget):
         self.filenames = []
         for doc_file in doc_files:
             # Don't include word rubbish files created by taskkill / gitignore / zip files
-            if ('$' not in doc_file) and ('.gitignore' not in doc_file) and ('.zip' not in doc_file):
+            if ('$' not in doc_file) and ('.gitignore' not in doc_file) and ('.zip' not in doc_file) and ('.docx' not in doc_file):
                 self.filenames.append(doc_dir+doc_file)
         random.shuffle(self.filenames)
-        self.filenames = self.filenames[:5]
+        # self.filenames = self.filenames[:5]
 
         self.current_file_index = 0
         self.display_docs()
@@ -178,7 +178,7 @@ class DocumentWindow(QtGui.QWidget):
             print "you did it in " + final_time + " and had " + str(self.mistakes) + " mistakes"
             # self.post_json(self.player_name, final_time, self.mistakes)
             server_tools.post_game_end_json(self.player_name, final_time, self.mistakes)
-            os.startfile("http://localhost:5000")
+            server_tools.open_results_page()
             self.close()
             return
 

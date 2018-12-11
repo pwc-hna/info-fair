@@ -6,6 +6,7 @@ import requests
 from main import start_game
 from time import sleep
 import thread
+import gevent
 
 def is_player_live():
     url = settings.serverAddress + "/live"
@@ -15,16 +16,20 @@ def is_player_live():
         print data
         if data['live_player'] is not None:
             return True
-    except KeyError as e:
-        return False
+    except KeyError:
+        pass
+    except IOError:
+        pass
     return False
 
 def poll_live_player():
     while not is_player_live():
-        sleep(0.2)
+        sleep(0.5)
 
 def start_robot():
     print "Starting robot!"
+    while True:
+        gevent.sleep(0.1)
     pass
 
 def start_new_game(wtfarg):

@@ -2,6 +2,7 @@ import json
 import requests
 import settings
 import time
+import os
 
 def post_json_to_server(json, route):
     requests.post(settings.serverAddress + route, json=json)
@@ -15,3 +16,6 @@ def post_player_progress_json(player_name, current_doc, total_docs):
 def post_player_quit_game():
     if settings.playerName is not None:
         post_json_to_server(json={"username": settings.playerName},route='/quit')
+
+def open_results_page():
+    os.startfile(settings.serverAddress)
