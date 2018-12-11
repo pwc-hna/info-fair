@@ -92,7 +92,7 @@ class DocumentWindow(QtGui.QWidget):
             if ('$' not in doc_file) and ('.gitignore' not in doc_file) and ('.zip' not in doc_file) and ('.docx' not in doc_file):
                 self.filenames.append(doc_dir+doc_file)
         random.shuffle(self.filenames)
-        # self.filenames = self.filenames[:5]
+        self.filenames = self.filenames[:5]
 
         self.current_file_index = 0
         self.display_docs()

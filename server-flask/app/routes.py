@@ -88,5 +88,5 @@ def quit():
 def live():
     # Return a json with live players?
     data = {}
-    #data["live_player"] = "TestPlayer"
+    data["live_player"] = "TestPlayer"
     return json.dumps(data)

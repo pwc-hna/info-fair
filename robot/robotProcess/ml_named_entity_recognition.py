@@ -10,7 +10,10 @@ def analyzeText(text=None):
     # import HTMLParser
     # import io
 
-    nlp = spacy.load('en') # install 'en' model (python3 -m spacy download en)
+    # nlp = spacy.load('en') # install 'en' model (python3 -m spacy download en)
+    # Optimize spacy loading modules
+    nlp = spacy.load('en', disable=['parser', 'tagger','textcat'])
+
     # print ("Analyzing text ...")
     doc = nlp(text)
     money_labels = []
