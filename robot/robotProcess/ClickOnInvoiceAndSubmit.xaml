@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ClickOnCVAndSubmit" mva:VisualBasic.Settings="{x:Null}"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ClickOnCVAndSubmit" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ClickOnCVAndSubmit_1"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -78,9 +78,9 @@
           <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
         </ActivityAction.Argument>
         <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_1">
-          <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'radio button Invoice'" sap2010:WorkflowViewState.IdRef="Check_1">
+          <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'radio button  Invoice'" sap2010:WorkflowViewState.IdRef="Check_2">
             <ui:Check.Target>
-              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5c9544396bd05f655e8416593b291685" Selector="&lt;ctrl name='BeatTheBot' role='client' /&gt;&lt;ctrl name='Invoice' role='radio button' /&gt;" WaitForReady="INTERACTIVE" />
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="0e281414020f0f88a27a24d4aa2ebccb" Selector="&lt;ctrl name='Select document' role='text' /&gt;&lt;nav up='1' /&gt;&lt;ctrl name='Invoice' role='radio button' /&gt;" WaitForReady="COMPLETE" />
             </ui:Check.Target>
           </ui:Check>
           <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'push button  Submit'" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
@@ -94,12 +94,11 @@
         </Sequence>
       </ActivityAction>
     </ui:WindowScope.Body>
-    <sads:DebugSymbol.Symbol>d1BDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcQ2xpY2tPbkludm9pY2VBbmRTdWJtaXQueGFtbAlKA2IUAgEBSpECStoCAgEJUAleFAIBAlELVRYCAQdWC10WAgEDU54BU/8BAgEIW54BW/0BAgEGWDdYOwIBBVgqWC4CAQQ=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1BDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcQ2xpY2tPbkludm9pY2VBbmRTdWJtaXQueGFtbAlKA2IUAgEBSpECStoCAgEJUAleFAIBAlELVRYCAQdWC10WAgEDU54BU5YCAgEIW54BW/0BAgEGWDdYOwIBBVgqWC4CAQQ=</sads:DebugSymbol.Symbol>
   </ui:WindowScope>
-  <sap2010:WorkflowViewState.IdRef>ClickOnCVAndSubmit_1</sap2010:WorkflowViewState.IdRef>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Check_1" sap:VirtualizedContainerService.HintSize="314.4,107.2" />
+      <sap2010:ViewStateData Id="Check_2" sap:VirtualizedContainerService.HintSize="314.4,107.2" />
       <sap2010:ViewStateData Id="Click_1" sap:VirtualizedContainerService.HintSize="314.4,107.2" />
       <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336.8,379.2">
         <sap:WorkflowViewStateService.ViewState>

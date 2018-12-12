@@ -9,5 +9,3 @@ def hello(text=None):
     rc = proc.returncode
     return str(rc)
 
-if __name__ == '__main__':
-    hello('text')

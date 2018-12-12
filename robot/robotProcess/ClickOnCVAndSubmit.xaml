@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ClickOnCVAndSubmit" mva:VisualBasic.Settings="{x:Null}"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ClickOnCVAndSubmit" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ClickOnCVAndSubmit_1"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -71,34 +71,30 @@
       <AssemblyReference>System.Xaml</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'BeatTheBot Qwidget'" InformativeScreenshot="324a8a5e2ad190f491e63abed7951827" Selector="&lt;wnd app='python.exe' cls='QWidget' idx='1' title='BeatTheBot' /&gt;">
+  <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window 'BeatTheBot Qwidget'" sap2010:WorkflowViewState.IdRef="WindowScope_1" InformativeScreenshot="117764f23a5a941de5ab0b31f1f1b624" Selector="&lt;wnd app='python.exe' cls='QWidget' idx='1' title='BeatTheBot' /&gt;&lt;ctrl name='BeatTheBot' role='client' /&gt;&lt;ctrl name='CV' role='radio button' /&gt;">
     <ui:WindowScope.Body>
       <ActivityAction x:TypeArguments="x:Object">
         <ActivityAction.Argument>
           <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
         </ActivityAction.Argument>
-        <Sequence DisplayName="Do">
-          <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'radio button  CV'">
+        <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <ui:Check ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" DisplayName="Check 'radio button  CV'" sap2010:WorkflowViewState.IdRef="Check_1">
             <ui:Check.Target>
-              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5c9544396bd05f655e8416593b291685" Selector="&lt;ctrl name='BeatTheBot' role='client' /&gt;&lt;ctrl name='CV' role='radio button' /&gt;" WaitForReady="INTERACTIVE" />
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c38b7aa3a45db48f43f06710af2e1fd3" Selector="&lt;ctrl name='Select document' role='text' /&gt;&lt;nav up='1' /&gt;&lt;ctrl name='CV' role='radio button' /&gt;" WaitForReady="COMPLETE" />
             </ui:Check.Target>
-            <sap2010:WorkflowViewState.IdRef>Check_1</sap2010:WorkflowViewState.IdRef>
           </ui:Check>
-          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'push button  Submit'" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'push button  Submit'" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
             <ui:Click.CursorPosition>
               <ui:CursorPosition OffsetX="51" OffsetY="13" Position="TopLeft" />
             </ui:Click.CursorPosition>
             <ui:Click.Target>
               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5bdfa7e0242ec429e3527ea950918c20" Selector="&lt;ctrl name='BeatTheBot' role='client' /&gt;&lt;ctrl name='Submit' role='push button' /&gt;" WaitForReady="INTERACTIVE" />
             </ui:Click.Target>
-            <sap2010:WorkflowViewState.IdRef>Click_1</sap2010:WorkflowViewState.IdRef>
           </ui:Click>
-          <sap2010:WorkflowViewState.IdRef>Sequence_1</sap2010:WorkflowViewState.IdRef>
         </Sequence>
       </ActivityAction>
     </ui:WindowScope.Body>
-    <sap2010:WorkflowViewState.IdRef>WindowScope_1</sap2010:WorkflowViewState.IdRef>
-    <sads:DebugSymbol.Symbol>d0tDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcQ2xpY2tPbkNWQW5kU3VibWl0LnhhbWwJSgNmFAIBAUrhAUqqAgIBCVAJYRQCAQJRC1YWAgEHVwtfFgIBA1OeAVP6AQIBCFyeAVz9AQIBBlk3WTsCAQVZKlkuAgEE</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0tDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcQ2xpY2tPbkNWQW5kU3VibWl0LnhhbWwJSgNiFAIBAUqRAkq0AwIBCVAJXhQCAQJRC1UWAgEHVgtdFgIBA1OeAVORAgIBCFueAVv9AQIBBlg3WDsCAQVYKlguAgEE</sads:DebugSymbol.Symbol>
   </ui:WindowScope>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -111,7 +107,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="200,52.8">
+      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="414.4,526.4">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -119,6 +115,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ClickOnCVAndSubmit_1" sap:VirtualizedContainerService.HintSize="454.4,606.4" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

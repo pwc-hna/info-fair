@@ -1,4 +1,4 @@
-﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="SubmitBotName" mva:VisualBasic.Settings="{x:Null}"
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="SubmitBotName" this:SubmitBotName.player_name="Roboto"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
@@ -7,8 +7,16 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:this="clr-namespace:"
  xmlns:ui="http://schemas.uipath.com/workflow/activities"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="player_name" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>SubmitBotName_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -69,6 +77,12 @@
       <AssemblyReference>WindowsBase</AssemblyReference>
       <AssemblyReference>PresentationCore</AssemblyReference>
       <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Type in the bot name" sap2010:WorkflowViewState.IdRef="WindowScope_2" InformativeScreenshot="3faf954a433590f747bf873ec15ba9c9" Selector="&lt;wnd app='python.exe' cls='QWidget' title='BeatTheBot' /&gt;">
@@ -78,7 +92,7 @@
           <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
         </ActivityAction.Argument>
         <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
-          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'editable text'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="Roboto">
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type Into 'editable text'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="[&quot;Robot&quot; + player_name]">
             <ui:TypeInto.Target>
               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f2b696353271080457140672f94b8e08" Selector="&lt;ctrl name='BeatTheBot' role='client' /&gt;&lt;ctrl role='editable text' /&gt;" WaitForReady="INTERACTIVE" />
             </ui:TypeInto.Target>
@@ -101,7 +115,7 @@
         </Sequence>
       </ActivityAction>
     </ui:WindowScope.Body>
-    <sads:DebugSymbol.Symbol>d0ZDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcU3VibWl0Qm90TmFtZS54YW1sCEoDaRQCAQFKgwJKxAICAQhQCWUUAgECUQtVGQIBBVYLZBYCAQNTngFT8QECAQdRpQJRrQICAQZingFi/QECAQQ=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0ZDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcU3VibWl0Qm90TmFtZS54YW1sCQFiAWkBAlgDdxQCAQFYgwJYxAICAQleCXMUAgECXwtjGQIBBWQLchYCAQNhngFh8QECAQhfpQJfyAICAQZwngFw/QECAQQ=</sads:DebugSymbol.Symbol>
   </ui:WindowScope>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -114,7 +128,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="414.4,52.8">
+      <sap2010:ViewStateData Id="WindowScope_2" sap:VirtualizedContainerService.HintSize="414.4,554.4">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -122,6 +136,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SubmitBotName_1" sap:VirtualizedContainerService.HintSize="454.4,634.4" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

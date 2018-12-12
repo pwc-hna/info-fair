@@ -98,14 +98,12 @@
             <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
           </ActivityAction.Argument>
           <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_1">
-            <ui:CommentOut DisplayName="Comment Out">
+            <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
               <ui:CommentOut.Body>
-                <Sequence DisplayName="Ignored Activities">
+                <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="Attached acrobat window" />
-                  <sap2010:WorkflowViewState.IdRef>Sequence_4</sap2010:WorkflowViewState.IdRef>
                 </Sequence>
               </ui:CommentOut.Body>
-              <sap2010:WorkflowViewState.IdRef>CommentOut_1</sap2010:WorkflowViewState.IdRef>
             </ui:CommentOut>
             <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
               <Assign.To>
@@ -123,34 +121,37 @@
                 <InArgument x:TypeArguments="x:String">[appWindowUIElement.Get("title").ToString.Substring(0,10)]</InArgument>
               </Assign.Value>
             </Assign>
-            <If Condition="[Not oldWindowTitle.Equals(currentWindowTitle) or String.IsNullOrEmpty(oldWindowTitle)]" sap2010:WorkflowViewState.IdRef="If_1">
+            <ui:LogMessage DisplayName="Log Message" Level="Info" Message="[&quot;Current window title = &quot;+currentWindowTitle]" sap2010:WorkflowViewState.IdRef="LogMessage_3" />
+            <If Condition="[currentWindowTitle.Length = 10]" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
-                  <ui:GetVisibleText WordsInfo="{x:Null}" DisplayName="Get Visible Text 'AVL_AVView'" FormattedText="False" sap2010:WorkflowViewState.IdRef="GetVisibleText_1">
-                    <ui:GetVisibleText.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8ab8590b24f6ce98af8d2e863251a22c" Selector="&lt;wnd cls='AVL_AVView' title='AVPageView' /&gt;" WaitForReady="INTERACTIVE" />
-                    </ui:GetVisibleText.Target>
-                    <ui:GetVisibleText.Text>
-                      <OutArgument x:TypeArguments="x:String">[visibleText]</OutArgument>
-                    </ui:GetVisibleText.Text>
-                  </ui:GetVisibleText>
-                  <ui:CommentOut DisplayName="Comment Out">
-                    <ui:CommentOut.Body>
-                      <Sequence DisplayName="Ignored Activities">
-                        <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="Got window text" />
-                        <sap2010:WorkflowViewState.IdRef>Sequence_5</sap2010:WorkflowViewState.IdRef>
-                      </Sequence>
-                    </ui:CommentOut.Body>
-                    <sap2010:WorkflowViewState.IdRef>CommentOut_2</sap2010:WorkflowViewState.IdRef>
-                  </ui:CommentOut>
-                </Sequence>
+                <If Condition="[Not oldWindowTitle.Equals(currentWindowTitle) or String.IsNullOrEmpty(oldWindowTitle)]" sap2010:WorkflowViewState.IdRef="If_1">
+                  <If.Then>
+                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+                      <ui:GetVisibleText WordsInfo="{x:Null}" DisplayName="Get Visible Text 'AVL_AVView'" FormattedText="False" sap2010:WorkflowViewState.IdRef="GetVisibleText_1">
+                        <ui:GetVisibleText.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8ab8590b24f6ce98af8d2e863251a22c" Selector="&lt;wnd cls='AVL_AVView' title='AVPageView' /&gt;" WaitForReady="NONE" />
+                        </ui:GetVisibleText.Target>
+                        <ui:GetVisibleText.Text>
+                          <OutArgument x:TypeArguments="x:String">[visibleText]</OutArgument>
+                        </ui:GetVisibleText.Text>
+                      </ui:GetVisibleText>
+                      <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                        <ui:CommentOut.Body>
+                          <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                            <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="Got window text" />
+                          </Sequence>
+                        </ui:CommentOut.Body>
+                      </ui:CommentOut>
+                    </Sequence>
+                  </If.Then>
+                </If>
               </If.Then>
             </If>
           </Sequence>
         </ActivityAction>
       </ui:WindowScope.Body>
     </ui:WindowScope>
-    <sads:DebugSymbol.Symbol>d0RDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcUmVhZFBkZlRleHQueGFtbBNZA5oBDgIBAV4FmAEWAgECXpcCXs8CAgEbXmVecgIBGWQLlQEWAgEDZQ1tHQIBGG4NdRYCARN2DX0WAgEPfg2UARICAQRzPHNHAgEWcD1wUQIBFHs4e3ICARJ4OXhNAgEQfht+dAIBBYABEZIBHAIBCYEBE4gBJwIBC4kBE5EBIwIBCoMBpgGDAdkBAgEOhgE/hgFMAgEM</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0RDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcUmVhZFBkZlRleHQueGFtbBdZA5sBDgIBAV4FmQEWAgECXpcCXs8CAgEhXmVecgIBH2QLlgEWAgEDZQ1rHQIBHmwNcxYCARl0DXsWAgEVfA18twECARJ9DZUBEgIBBHE8cUcCARxuPW5RAgEaeTh5cgIBGHY5dk0CARZ8S3yFAQIBE30bfT0CAQV/EZMBFgIBB38ff3gCAQiBARWRASACAQyCAReJASsCAQ6KAReQAScCAQ2EAaoBhAHdAQIBEYcBQ4cBUAIBDw==</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -162,9 +163,10 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="563.2,296" />
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="563.2,60" />
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="563.2,60" />
+      <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="688,296" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="688,60" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="688,60" />
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="688,92.8" />
       <sap2010:ViewStateData Id="GetVisibleText_1" sap:VirtualizedContainerService.HintSize="416,107.2" />
       <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
       <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336.8,217.6">
@@ -183,22 +185,23 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="563.2,717.6" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="585.6,1378.4">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="688,867.2" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="710.4,1660.8">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="600,1525.6" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="622.4,1650.4">
+      <sap2010:ViewStateData Id="WindowScope_1" sap:VirtualizedContainerService.HintSize="724.8,1808" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="747.2,1932.8">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ReadPdfText_1" sap:VirtualizedContainerService.HintSize="662.4,1730.4" />
+      <sap2010:ViewStateData Id="ReadPdfText_1" sap:VirtualizedContainerService.HintSize="787.2,2012.8" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

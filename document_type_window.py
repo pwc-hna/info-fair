@@ -8,6 +8,7 @@ import random
 import sys
 import requests
 import server_tools
+import gevent
 
 ms = 0
 s = 0
@@ -92,7 +93,7 @@ class DocumentWindow(QtGui.QWidget):
             if ('$' not in doc_file) and ('.gitignore' not in doc_file) and ('.zip' not in doc_file) and ('.docx' not in doc_file):
                 self.filenames.append(doc_dir+doc_file)
         random.shuffle(self.filenames)
-        self.filenames = self.filenames[:5]
+        self.filenames = self.filenames[:7]
 
         self.current_file_index = 0
         self.display_docs()
@@ -116,15 +117,15 @@ class DocumentWindow(QtGui.QWidget):
         # Verify if choice is correct: CVs have even sum digits, invoices have odd
         fname, file_extension = os.path.splitext(os.path.basename(self.filenames[self.current_file_index]))
         if (submitted_doc_type == 'CV') and (sum_digits(int(fname)) % 2 == 0):
-            print "The choice is correct"
+            print "The choice is correct for " +str(fname)
             # TODO: Light up green leds in tree
             pass
         elif (submitted_doc_type == "Invoice") and (sum_digits(int(fname)) % 2 != 0):
-            print "The choice is correct"
+            print "The choice is correct for " +str(fname)
             # TODO: Light up green leds in tree
             pass
         else:
-            print "The choice is NOT correct"
+            print "The choice is NOT correct for " +str(fname)
             # TODO: Light up red leds in tree
             self.mistakes += 1
 
@@ -178,7 +179,8 @@ class DocumentWindow(QtGui.QWidget):
             print "you did it in " + final_time + " and had " + str(self.mistakes) + " mistakes"
             # self.post_json(self.player_name, final_time, self.mistakes)
             server_tools.post_game_end_json(self.player_name, final_time, self.mistakes)
-            server_tools.open_results_page()
+            if('Robot' not in self.player_name):
+                server_tools.open_results_page()
             self.close()
             return
 
@@ -188,7 +190,7 @@ class DocumentWindow(QtGui.QWidget):
         self.launch_doc(self.current_file)
         
         # Launch the window to get the document type selected by the player
-        time.sleep(5)
+        gevent.sleep(2)
 
         self.show()
         self.activateWindow()
