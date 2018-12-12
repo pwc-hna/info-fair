@@ -119,14 +119,17 @@ class DocumentWindow(QtGui.QWidget):
         if (submitted_doc_type == 'CV') and (sum_digits(int(fname)) % 2 == 0):
             print "The choice is correct for " +str(fname)
             # TODO: Light up green leds in tree
+            server_tools.arduino_send_progress_message(True,self.current_file_index, True)
             pass
         elif (submitted_doc_type == "Invoice") and (sum_digits(int(fname)) % 2 != 0):
             print "The choice is correct for " +str(fname)
             # TODO: Light up green leds in tree
+            server_tools.arduino_send_progress_message(True,self.current_file_index, True)
             pass
         else:
             print "The choice is NOT correct for " +str(fname)
             # TODO: Light up red leds in tree
+            server_tools.arduino_send_progress_message(True,self.current_file_index, False)
             self.mistakes += 1
 
         # close active subprocess: word, acrobat, photo viewer
@@ -177,8 +180,8 @@ class DocumentWindow(QtGui.QWidget):
             # TODO: send name + time + accuracy to server
             final_time = "{0}:{1}:{2}".format("%02d"%(m,),"%02d"%(s,),"%02d"%(ms,))
             print "you did it in " + final_time + " and had " + str(self.mistakes) + " mistakes"
-            # self.post_json(self.player_name, final_time, self.mistakes)
             server_tools.post_game_end_json(self.player_name, final_time, self.mistakes)
+            server_tools.arduino_send_end_game_message()
             if('Robot' not in self.player_name):
                 server_tools.open_results_page()
             self.close()
@@ -196,9 +199,6 @@ class DocumentWindow(QtGui.QWidget):
         self.activateWindow()
         if self.current_file_index == 0:
             self.stopwatch_start_timer()
-
-    def post_json(self, player_name, final_time, mistakes):
-        r = requests.post('http://localhost:5000/foo', json={"username": player_name, "time":final_time,"mistakes":mistakes})
 
 def exit_handler():
     os.system("taskkill /f /im winword.exe /im AcroRd32.exe /im acrobat.exe /im dllhost.exe")

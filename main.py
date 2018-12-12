@@ -24,6 +24,7 @@ def exit_handler():
 
 def start_game():
     settings.init()
+    server_tools.arduino_send_start_game_message()
     # GUI app will get the name of the player
     player_name_app = QtGui.QApplication(sys.argv)
     player_name_window = PlayerNameWindow()

@@ -8,3 +8,7 @@ def init():
     serverAddress = serverHostname + ':' + serverPort
     global playerName 
     playerName = None
+    global game_status 
+    game_status = "FNNNNNNN"
+    global serial_port
+    serial_port = 'COM6'

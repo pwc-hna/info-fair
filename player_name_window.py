@@ -60,6 +60,7 @@ class PlayerNameWindow(QtGui.QWidget):
         if self.player_name == None:
             self.player_name = self.edit_default_player_name
         settings.playerName = self.player_name
+        server_tools.arduino_send_player_submit_name_game_message()
         document_type_window = DocumentWindow(self.player_name)
         self.close()
 

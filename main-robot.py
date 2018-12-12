@@ -8,6 +8,7 @@ from time import sleep
 import thread
 import gevent
 from subprocess import Popen, PIPE
+import server_tools
 
 def is_player_live():
     url = settings.serverAddress + "/live"
@@ -46,6 +47,7 @@ def start_new_game():
 if __name__ == '__main__':
     # First iteration
     settings.init()
+    server_tools.arduino_send_start_game_message()
     # iterations = 3
     # while iterations>0:
         # iterations = iterations - 1

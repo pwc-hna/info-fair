@@ -89,7 +89,6 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <p:PythonScope DisplayName="Python Scope" sap2010:WorkflowViewState.IdRef="PythonScope_1" Path="C:\Python36-32" Version="Python_36">
@@ -104,43 +103,9 @@
             <Variable x:TypeArguments="p:PythonObject" Name="invoke_out" />
             <Variable x:TypeArguments="x:String" Name="get_out" />
           </Sequence.Variables>
-          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-            <ui:CommentOut.Body>
-              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_4">
-                <p:LoadScript Code="{x:Null}" DisplayName="Load Python Script" sap2010:WorkflowViewState.IdRef="LoadScript_4" Result="[load_out]" ScriptFile="PythonScript.py" />
-                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;text to analyze&quot;+ visibleText]" />
-              </Sequence>
-            </ui:CommentOut.Body>
-          </ui:CommentOut>
           <p:LoadScript Code="{x:Null}" DisplayName="Load Python Script" sap2010:WorkflowViewState.IdRef="LoadScript_3" Result="[load_out]" ScriptFile="PythonScriptFast.py" />
-          <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="Loaded pyscript" />
-          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
-            <ui:CommentOut.Body>
-              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_5">
-                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="Loaded pyscript" />
-                <p:InvokeMethod DisplayName="Invoke Python Method" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" Instance="[load_out]" Name="hello" Parameters="[{visibleText}]" Result="[invoke_out]" />
-              </Sequence>
-            </ui:CommentOut.Body>
-          </ui:CommentOut>
-          <ui:LogMessage DisplayName="Log Message" Level="Info" Message="[&quot;Invoke Py method with arg = &quot;+currentWindowTitle]" sap2010:WorkflowViewState.IdRef="LogMessage_9" />
           <p:InvokeMethod DisplayName="Invoke Python Method" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" Instance="[load_out]" Name="mapNameToDocType" Parameters="[{currentWindowTitle}]" Result="[invoke_out]" />
-          <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="Invoked Py method" />
-          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_3">
-            <ui:CommentOut.Body>
-              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_6">
-                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="Invoked Py method" />
-              </Sequence>
-            </ui:CommentOut.Body>
-          </ui:CommentOut>
           <p:GetObject x:TypeArguments="x:String" DisplayName="Get Python Object" sap2010:WorkflowViewState.IdRef="GetObject`1_1" PythonObject="[invoke_out]" Result="[get_out]" />
-          <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;python returns &quot;+get_out]" />
-          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_4">
-            <ui:CommentOut.Body>
-              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[get_out]" />
-              </Sequence>
-            </ui:CommentOut.Body>
-          </ui:CommentOut>
           <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
               <OutArgument x:TypeArguments="x:String">[textAnalysisResult]</OutArgument>
@@ -149,13 +114,83 @@
               <InArgument x:TypeArguments="x:String">[get_out]</InArgument>
             </Assign.Value>
           </Assign>
+          <ui:CommentOut DisplayName="Comment Out">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities">
+                <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;python returns &quot;+get_out]" />
+                <sap2010:WorkflowViewState.IdRef>Sequence_8</sap2010:WorkflowViewState.IdRef>
+              </Sequence>
+            </ui:CommentOut.Body>
+            <sap2010:WorkflowViewState.IdRef>CommentOut_5</sap2010:WorkflowViewState.IdRef>
+          </ui:CommentOut>
+          <ui:CommentOut DisplayName="Comment Out">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities">
+                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Invoke Py method with arg = &quot;+currentWindowTitle]" />
+                <sap2010:WorkflowViewState.IdRef>Sequence_9</sap2010:WorkflowViewState.IdRef>
+              </Sequence>
+            </ui:CommentOut.Body>
+            <sap2010:WorkflowViewState.IdRef>CommentOut_6</sap2010:WorkflowViewState.IdRef>
+          </ui:CommentOut>
+          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <p:LoadScript Code="{x:Null}" DisplayName="Load Python Script" sap2010:WorkflowViewState.IdRef="LoadScript_4" Result="[load_out]" ScriptFile="PythonScript.py" />
+                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;text to analyze&quot;+ visibleText]" />
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
+          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="Loaded pyscript" />
+                <p:InvokeMethod DisplayName="Invoke Python Method" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" Instance="[load_out]" Name="hello" Parameters="[{visibleText}]" Result="[invoke_out]" />
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
+          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="Invoked Py method" />
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
+          <ui:CommentOut DisplayName="Comment Out" sap2010:WorkflowViewState.IdRef="CommentOut_4">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[get_out]" />
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
         </Sequence>
       </ActivityAction>
     </p:PythonScope.Body>
-    <sads:DebugSymbol.Symbol>d0dDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcRG9UZXh0QW5hbHlzaXMueGFtbB1fA5wBEwIBAV9iX3ICASdlCZgBFAIBAmsLchsCASZzC3OwAQIBInQLdIwBAgEgdQt8GwIBH30LfboBAgEcfgt+2QECARR/C3+OAQIBEoABC4YBGwIBEYcBC4cBtAECAQyIAQuIAaIBAgEJiQELjwEbAgEIkAELlwEUAgEDc5gBc60BAgElc4ABc4wBAgEjdHh0iQECASF9SX2IAQIBHX6oAX7AAQIBGn54foQBAgEYfsgBftYBAgEWfooBfpwBAgEVf3h/iwECAROHAaYBhwGxAQIBD4cBkAGHAZ4BAgENiAF4iAGfAQIBCpUBNpUBPwIBBpIBN5IBSwIBBA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0dDOlxXb3JrXHB5dGhvbi1pbmZvLWZhaXItd3JhcHBlclxyb2JvdFxyb2JvdFByb2Nlc3NcRG9UZXh0QW5hbHlzaXMueGFtbBdeA6kBEwIBAV5iXnICAR9kCaUBFAIBAmoLarABAgEbawtr2QECARNsC2y0AQIBDm0LdBQCAQl1C30bAgEIfguGARsCAQeHAQuOARsCAQaPAQuWARsCAQWXAQudARsCAQSeAQukARsCAQNqmAFqrQECAR5qgAFqjAECARxrqAFrwAECARlreGuEAQIBF2vIAWvWAQIBFWuKAWucAQIBFGymAWyxAQIBEWyQAWyeAQIBD3I2cj8CAQxvN29LAgEK</sads:DebugSymbol.Symbol>
   </p:PythonScope>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="LoadScript_3" sap:VirtualizedContainerService.HintSize="416,60" />
+      <sap2010:ViewStateData Id="InvokeMethod_3" sap:VirtualizedContainerService.HintSize="416,22.4" />
+      <sap2010:ViewStateData Id="GetObject`1_1" sap:VirtualizedContainerService.HintSize="416,22.4" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="416,60" />
+      <sap2010:ViewStateData Id="LogMessage_8" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="336.8,217.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_5" sap:VirtualizedContainerService.HintSize="416,296" />
+      <sap2010:ViewStateData Id="LogMessage_9" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="336.8,217.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CommentOut_6" sap:VirtualizedContainerService.HintSize="416,296" />
       <sap2010:ViewStateData Id="LoadScript_4" sap:VirtualizedContainerService.HintSize="314.4,60" />
       <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
       <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="336.8,317.6">
@@ -166,8 +201,6 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="CommentOut_1" sap:VirtualizedContainerService.HintSize="416,396" />
-      <sap2010:ViewStateData Id="LoadScript_3" sap:VirtualizedContainerService.HintSize="416,60" />
-      <sap2010:ViewStateData Id="LogMessage_6" sap:VirtualizedContainerService.HintSize="416,92.8" />
       <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
       <sap2010:ViewStateData Id="InvokeMethod_4" sap:VirtualizedContainerService.HintSize="314.4,22.4" />
       <sap2010:ViewStateData Id="Sequence_5" sap:VirtualizedContainerService.HintSize="336.8,280">
@@ -178,9 +211,6 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="CommentOut_2" sap:VirtualizedContainerService.HintSize="416,358.4" />
-      <sap2010:ViewStateData Id="LogMessage_9" sap:VirtualizedContainerService.HintSize="416,92.8" />
-      <sap2010:ViewStateData Id="InvokeMethod_3" sap:VirtualizedContainerService.HintSize="416,22.4" />
-      <sap2010:ViewStateData Id="LogMessage_7" sap:VirtualizedContainerService.HintSize="416,92.8" />
       <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
       <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="336.8,217.6">
         <sap:WorkflowViewStateService.ViewState>
@@ -190,8 +220,6 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="CommentOut_3" sap:VirtualizedContainerService.HintSize="416,296" />
-      <sap2010:ViewStateData Id="GetObject`1_1" sap:VirtualizedContainerService.HintSize="416,22.4" />
-      <sap2010:ViewStateData Id="LogMessage_8" sap:VirtualizedContainerService.HintSize="416,92.8" />
       <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314.4,92.8" />
       <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="336.8,217.6">
         <sap:WorkflowViewStateService.ViewState>
@@ -201,16 +229,15 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="CommentOut_4" sap:VirtualizedContainerService.HintSize="416,296" />
-      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="416,60" />
-      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="438.4,2447.2">
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="438.4,2588">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="PythonScope_1" sap:VirtualizedContainerService.HintSize="452.8,2484" />
-      <sap2010:ViewStateData Id="DoTextAnalysis_1" sap:VirtualizedContainerService.HintSize="492.8,2564" />
+      <sap2010:ViewStateData Id="PythonScope_1" sap:VirtualizedContainerService.HintSize="452.8,2624.8" />
+      <sap2010:ViewStateData Id="DoTextAnalysis_1" sap:VirtualizedContainerService.HintSize="492.8,2704.8" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
