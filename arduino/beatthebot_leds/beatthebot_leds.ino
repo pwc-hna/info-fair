@@ -2,7 +2,7 @@
 
 #define PIN 6
 #define NUM_DOCS 7
-#define NUM_LEDS 60
+#define NUM_LEDS 300
 
 CRGB leds[NUM_LEDS];
  
@@ -35,7 +35,9 @@ void loop(){
       receivedChars = read_str_from_pc();
       // newData = false;
       Serial.println(receivedChars);
-      str = receivedChars;
+      if (receivedChars.length() == NUM_DOCS+1){
+        str = receivedChars;
+      }
       // gameWon = true;
     }
 
