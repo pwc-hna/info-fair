@@ -87,6 +87,5 @@ def quit():
 @app.route('/live', methods=['GET'])
 def live():
     # Return a json with live players?
-    data = {}
-    data["live_player"] = "TestPlayer"
+    data = db_get_all_live_users_as_list()
     return json.dumps(data)

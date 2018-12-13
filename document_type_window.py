@@ -193,7 +193,7 @@ class DocumentWindow(QtGui.QWidget):
         self.launch_doc(self.current_file)
         
         # Launch the window to get the document type selected by the player
-        gevent.sleep(2)
+        # gevent.sleep(1.3)
 
         self.show()
         self.activateWindow()

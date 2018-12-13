@@ -15,9 +15,9 @@ def is_player_live():
     try:
         resp = requests.get(url)
         data = resp.json()
-        print data
-        if data['live_player'] is not None:
-            return [True, data['live_player']]
+        for live_player in data:
+            if 'mRobot' not in live_player['username']:
+                return [True, 'mRobot'+live_player['username']+'*'+live_player['creation_date']]
     except KeyError:
         pass
     except IOError:
