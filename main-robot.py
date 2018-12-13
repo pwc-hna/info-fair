@@ -49,12 +49,7 @@ def start_new_game():
 
 
 if __name__ == '__main__':
-    # First iteration
     settings.init()
-    server_tools.arduino_send_start_game_message()
-    # iterations = 3
-    # while iterations>0:
-        # iterations = iterations - 1
     while True:
         try:
             main_game_proc = start_new_game()
