@@ -74,6 +74,9 @@ def db_user_has_finished(username):
 def db_user_get_finished_user(username):
     return FinishedUser.query.filter(FinishedUser.username == username).first()
 
+def db_user_get_finished_user(username,creationDate):
+    return FinishedUser.query.filter(FinishedUser.username == username).filter(FinishedUser.creationDate == creationDate).first()
+
 def db_user_update_live_player(incoming_live_player):
     username = incoming_live_player['username']
     # Does it exist already?
@@ -99,7 +102,7 @@ def db_get_all_latest_finished_humans_as_list():
     # print query_entries
     finished_humans = []
     for finished_player in query_entries:
-        robotInfo = db_get_robot_time_from_username(finished_player.username)
+        robotInfo = db_get_robot_time_from_username(finished_player.username, finished_player.creationDate)
         finished_humans.append({'username':finished_player.username,'time':finished_player.time, 'mistakes':finished_player.mistakes, 'robot_time':robotInfo[0], 'robot_mistakes':robotInfo[1]})
     return finished_humans
 
@@ -124,12 +127,12 @@ def db_get_all_finished_humans_as_list():
     # print query_entries
     finished_humans = []
     for finished_player in query_entries:
-        robotInfo = db_get_robot_time_from_username(finished_player.username)
+        robotInfo = db_get_robot_time_from_username(finished_player.username, finished_player.creationDate)
         finished_humans.append({'username':finished_player.username,'time':finished_player.time, 'mistakes':finished_player.mistakes, 'robot_time':robotInfo[0], 'robot_mistakes':robotInfo[1]})
     return finished_humans
 
-def db_get_robot_time_from_username(username):
-    human_user = db_user_get_finished_user(username) if db_user_has_finished(username) else None
+def db_get_robot_time_from_username(username, creationDate):
+    human_user = db_user_get_finished_user(username, creationDate) if db_user_has_finished(username) else None
     human_creation_date = human_user.creationDate
     # print "human creation date ="+human_creation_date
     robot_list = db_get_all_finished_robots_as_list()
