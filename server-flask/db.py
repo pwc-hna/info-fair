@@ -98,7 +98,7 @@ def db_get_all_live_users_as_list():
     return live_users
 
 def db_get_all_latest_finished_humans_as_list():
-    query_entries = db.session.query(FinishedUser).filter(~FinishedUser.username.like('mRobot%')).order_by(FinishedUser.creationDate).all()
+    query_entries = db.session.query(FinishedUser).filter(~FinishedUser.username.like('mRobot%')).order_by(FinishedUser.creationDate.desc()).all()
     # print query_entries
     finished_humans = []
     for finished_player in query_entries:
