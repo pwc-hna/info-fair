@@ -64,13 +64,27 @@
               <div class="slides-text probootstrap-animate">
                 <h2>Top 10</h2>
                 {% for result in results_humans %}
-                <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b>robot time:<b>{{result.robot_time}}</b>robot mistakes:<b>{{result.robot_mistakes}}</b></p></div>
+                <div><p><b>{{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> <br> robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
                 {% endfor %}
               </div>
             </div>
           </div>
         </div>
         
+      </li>
+      <li style="background-image: url({{ url_for('static', filename='img/slider_1.jpg') }});"> 
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <div class="slides-text probootstrap-animate">
+                <h2>Latest 10</h2>
+                {% for result in latest_players %}
+                <div><p><b>{{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> <br> robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
   </section>

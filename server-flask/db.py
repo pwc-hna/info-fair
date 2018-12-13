@@ -94,6 +94,15 @@ def db_get_all_live_users_as_list():
         live_users.append({'username':live_user.username,'current_doc':live_user.currentDoc, 'total_docs':live_user.totalDocs, 'creation_date':live_user.creationDate})
     return live_users
 
+def db_get_all_latest_finished_humans_as_list():
+    query_entries = db.session.query(FinishedUser).filter(~FinishedUser.username.like('mRobot%')).order_by(FinishedUser.creationDate).all()
+    # print query_entries
+    finished_humans = []
+    for finished_player in query_entries:
+        robotInfo = db_get_robot_time_from_username(finished_player.username)
+        finished_humans.append({'username':finished_player.username,'time':finished_player.time, 'mistakes':finished_player.mistakes, 'robot_time':robotInfo[0], 'robot_mistakes':robotInfo[1]})
+    return finished_humans
+
 def db_get_all_finished_users_as_list():
     query_entries = db.session.query(FinishedUser).order_by(FinishedUser.mistakes).order_by(FinishedUser.time).all()
     # print query_entries

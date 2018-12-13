@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="10">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles-merged.css') }}">
@@ -15,7 +16,6 @@
       <script src="js/vendor/respond.min.js"></script>
     <![endif]-->
     <title>{{ title }} - Leaderboards</title>
-    <meta http-equiv="refresh" content="2">
   </head>
   <body>
 
@@ -36,11 +36,11 @@
           <ul class="probootstrap-main-nav">
             <li class="active"><a href="index.html">Leaderboards</a></li>
           </ul>
-          <ul class="probootstrap-right-nav hidden-xs">
+          <!-- <ul class="probootstrap-right-nav hidden-xs">
             <li><a href="#"><i class="icon-twitter"></i></a></li>
             <li><a href="#"><i class="icon-facebook2"></i></a></li>
             <li><a href="#"><i class="icon-instagram2"></i></a></li>
-          </ul>
+          </ul> -->
           <div class="extra-text visible-xs"> 
             <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
             <h5>Address</h5>
@@ -61,34 +61,31 @@
       <li style="background-image: url({{ url_for('static', filename='img/slider_1.jpg') }});"> 
         <div class="container">
           <div class="row">
-            <div class="col-md-4 text-left">
-              <div class="hna-slides-text probootstrap-animate">
-                <h2>Top 10 <br> robots</h2>
-                {% for result in results_robots %}
-                <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="col-md-4 text-center">
-              <div class="hna-slides-text probootstrap-animate">
-                <h2>Live <br> Players</h2>
-                {% for live_player in live_players %}
-                <div><p>{{ live_player.username }} document: <b>{{ live_player.current_doc }}</b> out of <b>{{live_player.total_docs}}</b></p></div>
-                {% endfor %}        
-                <!-- <p><a href="https://uicookies.com/" target="_blank" class="btn btn-primary">Get Started</a></p> -->
-              </div>
-            </div>
-            <div class="col-md-4 text-right">
-              <div class="hna-slides-text probootstrap-animate">
-                <h2>Top 10 <br> human</h2>
+            <div class="col-md-12 text-right">
+              <div class="slides-text probootstrap-animate">
+                <h2>Top 10</h2>
                 {% for result in results_humans %}
-                <div><p>{{ result.username }} time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b></p></div>
+                <div><p><b>{{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> <br> robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
                 {% endfor %}
               </div>
             </div>
           </div>
         </div>
         
+      </li>
+      <li style="background-image: url({{ url_for('static', filename='img/slider_1.jpg') }});"> 
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <div class="slides-text probootstrap-animate">
+                <h2>Latest 10</h2>
+                {% for result in latest_players %}
+                <div><p><b>{{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> <br> robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
   </section>
