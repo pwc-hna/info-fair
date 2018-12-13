@@ -10,6 +10,7 @@ import gevent
 from subprocess import Popen, PIPE
 import server_tools
 
+robot_names = []
 def is_player_live():
     url = settings.serverAddress + "/live"
     try:
@@ -17,7 +18,10 @@ def is_player_live():
         data = resp.json()
         for live_player in data:
             if 'mRobot' not in live_player['username']:
-                return [True, 'mRobot'+live_player['username']+'*'+live_player['creation_date']]
+                robotName = 'mRobot'+live_player['username']+'*'+live_player['creation_date']
+                if robotName not in robot_names:
+                    robot_names.append(robotName)
+                    return [True, robotName]
     except KeyError:
         pass
     except IOError:
@@ -29,7 +33,7 @@ def poll_live_player():
     playerName = ''
     while not playerIsLive: 
         [playerIsLive, playerName] = is_player_live()
-        gevent.sleep(0.5)
+        gevent.sleep(0.2)
     return playerName
 
 def start_robot(playerName):
@@ -56,10 +60,10 @@ if __name__ == '__main__':
             main_game_proc = start_new_game()
         except Exception as e:
             print "Error: unable to start thread " + str(e)
-        playerName = poll_live_player()
-        print ("Start robot with player name = "+playerName)
+        robotName = poll_live_player()
+        print ("Start robot with player name = "+robotName)
         try:
-            start_robot(playerName)
+            start_robot(robotName)
             main_game_proc.wait()
             output, err = main_game_proc.communicate()
         except KeyboardInterrupt as e:

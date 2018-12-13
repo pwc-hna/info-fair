@@ -29,16 +29,24 @@ def post_player_quit_game():
 def open_results_page():
     os.startfile(settings.serverAddress)
 
-def arduino_send_message(message):
-    print("arduino send message = "+message)
-    ser = None
-    try:
-        ser = serial.Serial('COM6', 9600)
-    except Exception as e:
-        print (str(e))
+global ser
+ser = None
 
+def arduino_send_message(message):
+    global ser
+    print("arduino send message = "+message)
     try:
-        ser.write(message)
+        ser.flush()
+        ser.write(message+'\n')
+        while(ser.in_waiting == 0): # Wait for input buffer
+            pass
+        time.sleep(0.1) 
+
+        # Serial read section
+        msg = ser.read(ser.inWaiting()) # read all characters in buffer
+        print ("Message from arduino: ")
+        print (msg)
+
     except Exception as e:
         print(str(e))
 
@@ -48,6 +56,7 @@ def arduino_send_player_submit_name_game_message():
     arduino_send_message(message)
 
 def arduino_send_start_game_message():
+    arduino_serial_init()
     arduino_send_message(settings.game_status)
 
 def arduino_send_end_game_message():
@@ -65,6 +74,10 @@ def arduino_send_progress_message(isGameStarted, current_doc_index, isCorrect):
     settings.game_status = message
     arduino_send_message(message)
 
+def arduino_serial_init():
+    global ser
+    ser = serial.Serial(settings.serial_port, 9600)
+    time.sleep(5)
 
 if __name__ == '__main__':
     settings.init()
