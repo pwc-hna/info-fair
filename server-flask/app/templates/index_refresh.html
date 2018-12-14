@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="5" >
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles-merged.css') }}">
@@ -64,7 +65,7 @@
               <div class="slides-text probootstrap-animate">
                 <h2>Top 10</h2>
                 {% for result in results_humans %}
-                <div><p><b>{{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
+                <div><p><b>{{ loop.index }}. {{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> <br> &emsp; &emsp; &emsp; &emsp;robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
                 {% endfor %}
               </div>
             </div>
@@ -79,7 +80,7 @@
               <div class="slides-text probootstrap-animate">
                 <h2>Latest 10</h2>
                 {% for result in latest_players %}
-                <div><p><b>{{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b> robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
+                <div><p><b>{{ loop.index }}. {{ result.username }}</b> time: <b>{{ result.time }}</b> mistakes:<b>{{result.mistakes}}</b>  <br> &emsp; &emsp; &emsp; &emsp;robot time:<b>{{result.robot_time}}</b> robot mistakes: <b>{{result.robot_mistakes}}</b></p></div>
                 {% endfor %}
               </div>
             </div>
