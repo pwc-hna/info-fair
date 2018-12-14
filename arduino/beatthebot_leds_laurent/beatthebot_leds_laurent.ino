@@ -6,64 +6,68 @@
 
 CRGB leds[NUM_LEDS];
  
-String str = "FNNNNNNN";
-String gameStr = "NNNNNNN";
+byte messageBytes[NUM_DOCS+1] = {1, 1, 1, 1, 1, 1, 1, 1};
+byte gameBytes[NUM_DOCS] = {1, 1, 1, 1, 1, 1, 1};
 // boolean gameWon = true; 
 // boolean newData = false;
-String receivedChars;
+byte receivedBytes[NUM_DOCS+1];
 
 void setup()
 {
-  Serial.begin(9600);  // initialize serial communications at 9600 bps
+  Serial.begin(115200);  // initialize serial communications at 9600 bps
   FastLED.addLeds<WS2811, PIN, GRB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
 
 }
 
-String read_str_from_pc() {
+void read_bytes_from_pc(byte array[]) {
   // serial read section
   while (Serial.available())
   {
-    if(Serial.available() > 0)
-    {
-        return Serial.readStringUntil('\n');
+      delay(30);
+      byte myBuffer[8];
+      myBuffer[NUM_DOCS+1] = Serial.readBytesUntil(0, myBuffer,NUM_DOCS+1);
+      for (int i = 0; i < NUM_DOCS+1; ++i) {
+      array[i] = myBuffer[i];
     }
   }
 }
 
 void loop(){
    if (Serial.available()) {
-      receivedChars = read_str_from_pc();
+      read_bytes_from_pc(receivedBytes);
       // newData = false;
-      Serial.println(receivedChars);
-      if (receivedChars.length() == NUM_DOCS+1){
-        str = receivedChars;
-      }
+      for (int i = 0; i < NUM_DOCS+1; i++) Serial.print(receivedBytes[i], HEX);
+      Serial.println();
+      //if (receivedBytes.length() == NUM_DOCS+1){
+      for (int i = 0; i < NUM_DOCS+1; i++) messageBytes[i] = receivedBytes[i];
+   }
       // gameWon = true;
-    }
-
    
-    gameStr = str.substring(1);
+
+   for(int i=1; i<NUM_DOCS+1; i++){
+    gameBytes[i-1] = messageBytes[i];
+   }
 
     // if game not started, twinkle tree
-    if(str.charAt(0) == 'F'){
+    if(messageBytes[0] == 1){
       TwinkleRandom(80, 100, false); 
       // gameWon = true; // to make sure this value is reset to TRUE (making a mistake sets it to false)
     }
     
     // if final answer not yet provided, game not won or lost yet
     // so check current status and provide lights
-    else if (gameStr.charAt(NUM_DOCS-1) == 'N'){
+    else if (gameBytes[NUM_DOCS-1] == 1){
       for(int i=0; i < NUM_DOCS-1; i++){ // loop over all but the last letter
-        char currentChar = gameStr.charAt(i);
+        byte currentByte = gameBytes[i];
 
         // current document not fulfilled yet, so the next ones neither
-        if(currentChar == 'N'){
-          CylonBounce(i*NUM_LEDS/NUM_DOCS, NUM_LEDS, 239, 186, 56, 100, 0, 0); // PwC Yellow
+        if(currentByte == 1){
+          CylonBounce(i*NUM_LEDS/NUM_DOCS, NUM_LEDS, 239, 186, 56, 4, 10, 50); // PwC Yellow
           break;
         }
 
         // current document correctly DONE
-        else if(currentChar == 'T'){
+        else if(currentByte == 2){
           // set current part of strip GREEN
           for(int j=i*NUM_LEDS/NUM_DOCS; j < min((i+1)*NUM_LEDS/NUM_DOCS,NUM_LEDS);j++){
              leds[j] = CRGB( 50, 205, 50); // Green  
@@ -83,7 +87,7 @@ void loop(){
       
      }
     }
-    else if (gameStr.indexOf('F') == -1){
+    else if (not foundEl(gameBytes,3)){
       theaterChase(50,205,50,50);
     }
     else {
@@ -97,6 +101,15 @@ void loop(){
 
 // -----HELPER FUNCTIONS
 //-------------------------
+
+boolean foundEl(byte array[], byte element){
+ for (int i = 0; i < sizeof(array); i++) {
+      if (array[i] == element) {
+          return true;
+      }
+    }
+  return false;
+}
 
 // void recvWithEndMarker() {
 //   static byte ndx = 0;
@@ -247,9 +260,6 @@ void showStrip() {
  #endif
  #ifndef ADAFRUIT_NEOPIXEL_H
    // FastLED
-   if (Serial.available()) {
-     return;
-   }
    FastLED.show();
  #endif
 }

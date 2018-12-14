@@ -1,31 +1,38 @@
 import serial
 import time
+import gevent
 
 #The following line is for serial over GPIO
 port = 'COM6' # note I'm using Mac OS-X
 
 
 ard = serial.Serial(port,9600,timeout=5)
-time.sleep(5) # wait for Arduino
+gevent.sleep(5) # wait for Arduino
 
-i = 0
 
-while (i < 1):
-    # Serial write section
+def arduino_send_message(message):
+    try:
+        ard.flush()
+        print ("Python value sent: "+message)
+        ard.write(message)
+        while(ard.in_waiting == 0):
+            pass
+        gevent.sleep(0.1) # I shortened this to match the new value in your Arduino code
 
-    ard.flush()
-    mStr = 'FTTFTFTT\n'
-    print ("Python value sent: "+mStr)
-    ard.write(mStr)
-    while(ard.in_waiting == 0):
-        pass
-    time.sleep(0.1) # I shortened this to match the new value in your Arduino code
+        # Serial read section
+        msg = ard.read(ard.inWaiting()) # read all characters in buffer
+        print ("Message from arduino: ")
+        print (str(msg))
+        gevent.sleep(2)
+        return str(msg)
+    except IOError:
+        return ""
 
-    # Serial read section
-    msg = ard.read(ard.inWaiting()) # read all characters in buffer
-    print ("Message from arduino: ")
-    print (msg)
-    i = i + 1
-else:
-    print "Exiting"
-exit()
+messages = ['FNNNNNNN\n','TNNNNNNN\n','TFNNNNNN\n','TFFNNNNN\n','TFFTNNNN\n','TFFTFNNN\n','TFFTFTNN\n', 'TFFTFTTT\n']
+# Serial write section
+for message in messages:
+    rcv_msg = ""
+    if ( message not in rcv_msg):
+        rcv_msg = arduino_send_message(message)
+        # if ( message not in rcv_msg):
+        #     rcv_msg = arduino_send_message(message)
