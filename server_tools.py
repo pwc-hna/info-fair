@@ -4,7 +4,7 @@ import settings
 import time
 import os
 import serial
-
+from subprocess import Popen, PIPE
 
 def post_json_to_server(json, route):
     requests.post(settings.serverAddress + route, json=json)
@@ -33,6 +33,16 @@ global ser
 ser = None
 
 def arduino_send_message(message):
+    msg_send_file = os.getcwd()+'\\arduino\\beatthebot_leds\\basic_example.py'
+    msg_send_file = "C:\\Work\\python-info-fair-wrapper\\arduino\\beatthebot_leds\\basic_example.py"
+    print ("ledctrl path = "+msg_send_file)
+    print ("sending message = "+message)
+    proc = Popen(["python2",msg_send_file, message], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    proc.wait()
+    output, err = proc.communicate()
+
+
+def arduino_send_message1(message):
     global ser
     print("arduino send message = "+message)
     try:
@@ -56,7 +66,7 @@ def arduino_send_player_submit_name_game_message():
     arduino_send_message(message)
 
 def arduino_send_start_game_message():
-    arduino_serial_init()
+    # arduino_serial_init()
     arduino_send_message(settings.game_status)
 
 def arduino_send_end_game_message():

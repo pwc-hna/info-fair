@@ -58,7 +58,7 @@ void loop(){
 
         // current document not fulfilled yet, so the next ones neither
         if(currentChar == 'N'){
-          CylonBounce(i*NUM_LEDS/NUM_DOCS, NUM_LEDS, 239, 186, 56, 100, 0, 0); // PwC Yellow
+          CylonBounce(i*NUM_LEDS/NUM_DOCS, NUM_LEDS, 239, 186, 56, 4, 0, 0); // PwC Yellow
           break;
         }
 
@@ -84,10 +84,10 @@ void loop(){
      }
     }
     else if (gameStr.indexOf('F') == -1){
-      theaterChase(50,205,50,50);
+      theaterChase(50,205,50,0);
     }
     else {
-      Fire(20,160,15);
+      Fire(20,160,0);
     }
       
   
