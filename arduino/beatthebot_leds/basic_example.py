@@ -7,13 +7,14 @@ import sys
 port = 'COM6' # note I'm using Mac OS-X
 
 
-ard = serial.Serial(port,9600,timeout=10)
-gevent.sleep(2) # wait for Arduino
 
 
 def arduino_send_message(message):
     try:
         # ard.flush()
+        ard = serial.Serial(port,9600,timeout=10)
+        gevent.sleep(2) # wait for Arduino
+
         print ("Python value sent: "+message)
         ard.write(message)
         while(ard.in_waiting == 0):
@@ -24,7 +25,7 @@ def arduino_send_message(message):
         msg = ard.read(ard.inWaiting()) # read all characters in buffer
         print ("Message from arduino: ")
         print (str(msg))
-        # gevent.sleep(2)
+        gevent.sleep(10)
         return str(msg)
     except IOError:
         return ""
@@ -41,4 +42,6 @@ for message in messages:
 
 if __name__ == '__main__':
     print ("arg = " + sys.argv[1])
-    arduino_send_message(sys.argv[1]+"\n")
+    if('N' in sys.argv[1]):
+        print ('N' in sys.argv[1])
+        arduino_send_message(sys.argv[1]+"\n")

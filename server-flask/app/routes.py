@@ -88,4 +88,5 @@ def quit():
 def live():
     # Return a json with live players?
     data = db_get_all_live_users_as_list()
+    #data = [{'username':'testUser','current_doc':'1', 'total_docs':'14', 'creation_date':'0'}]
     return json.dumps(data)

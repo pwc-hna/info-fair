@@ -12,6 +12,6 @@ def init():
     global playerName 
     playerName = None
     global game_status 
-    game_status = "FNNNNNNN"
+    game_status = "FFFFFFFF"
     global serial_port
     serial_port = 'COM6'

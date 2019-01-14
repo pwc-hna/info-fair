@@ -37,28 +37,30 @@ def arduino_send_message(message):
     msg_send_file = "C:\\Work\\python-info-fair-wrapper\\arduino\\beatthebot_leds\\basic_example.py"
     print ("ledctrl path = "+msg_send_file)
     print ("sending message = "+message)
-    proc = Popen(["python2",msg_send_file, message], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    proc.wait()
-    output, err = proc.communicate()
+    # if 'N' not in message:
+    #     proc = Popen(["python2",msg_send_file, message], shell=True, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+    #     proc.wait()
+    #     output, err = proc.communicate()
 
 
 def arduino_send_message1(message):
     global ser
-    print("arduino send message = "+message)
-    try:
-        ser.flush()
-        ser.write(message+'\n')
-        while(ser.in_waiting == 0): # Wait for input buffer
-            pass
-        time.sleep(0.1) 
+    if 'N' not in message:
+        print("arduino send message = "+message)
+        try:
+            ser.flush()
+            ser.write(message+'\n')
+            while(ser.in_waiting == 0): # Wait for input buffer
+                pass
+            time.sleep(0.1) 
 
-        # Serial read section
-        msg = ser.read(ser.inWaiting()) # read all characters in buffer
-        print ("Message from arduino: ")
-        print (msg)
+            # Serial read section
+            msg = ser.read(ser.inWaiting()) # read all characters in buffer
+            print ("Message from arduino: ")
+            print (msg)
 
-    except Exception as e:
-        print(str(e))
+        except Exception as e:
+            print(str(e))
 
 def arduino_send_player_submit_name_game_message():
     message = "TNNNNNNN"
@@ -93,6 +95,6 @@ if __name__ == '__main__':
     settings.init()
     print("initial status = "+settings.game_status)
     arduino_send_start_game_message()
-    arduino_send_progress_message(True,0,False)
-    arduino_send_progress_message(True,1,True)
+    # arduino_send_progress_message(True,0,False)
+    # arduino_send_progress_message(True,1,True)
     arduino_send_end_game_message()
