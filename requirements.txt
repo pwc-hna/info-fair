@@ -15,7 +15,7 @@ plac==0.9.6
 preshed==2.0.1
 pyreadline==2.1
 pyserial==3.4
-PyYAML==3.13
+PyYAML==5.4
 regex==2018.1.10
 requests==2.20.1
 simplejson==3.16.0
